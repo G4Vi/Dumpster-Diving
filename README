@@ -1,0 +1,59 @@
+//Project 1 Gavin Hayes gahayes@wpi.edu CS4513 C16
+
+To compile all projects type 'sh MakeAll.sh' which calls make on each of the three programs dump, dv, and rm.
+To compile one at a time instead enter their respective directories and type make.
+
+For all projects, DUMPSTER environmental variable needs to be set. To set it 'export DUMPSTER=value'
+where value is your intended dumpster directory. To make this permenant add it to .bashrc or any of the that families
+files.
+
+rm usage:
+Usage: rm [OPTION]... FILE...                                                                                                                                                                                                                                                   
+Move FILE(s) to DUMPSTER or delete with -f.                                                                                                                                                                                                                                     
+DUMPSTER environmental variable must be set!                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                
+  -f        delete permanently                                                                                                                                                                                                                                                  
+  -r        remove directories and their contents recursively                                                                                                                                                                                                                   
+  -h        display this help and exit                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                
+By default, rm does not affect directories.  Use the -r option to move or remove each listed directory, too, along with all of its contents.
+
+dv usage:
+Usage: dv [OPTION]... FILE...
+Move FILE(s) from DUMPSTER to current directory
+DUMPSTER environmental variable must be set!
+
+  -a       copy dumpster directory to current directory and clear dumpster
+  -h        display this help and exit
+
+dump usage:
+Usage: dump [OPTION]
+Empties DUMPSTER directory
+DUMPSTER environmental variable must be set!
+
+  -h        display this help and exit
+
+Code comments:
+C++ strings were used whenever convenient, but c-strings had to be used for *nix functions, especially if the function modified the supplied string.
+Some of the functions used in multiple programs, but most have details only for the program contained.
+For a good idea of the control flow, scroll to the bottom of each respective main.cpp file for the main function which employs a variety of helper functions.
+Function summaries:
+usage - displays usage message, called sometimes on error or by -h
+setupArgs - setup global args struct based on arguments.
+unLinkFile - attempt to unlink() file and return false.
+handlermdir - print error message if an unexpected error occurs when removing directory.
+recursiveClear - attempt to unlink and if it's a directory repeat and rmdir until through
+copyFile - copies a file, used to move from one device to another.
+touchFile - attempt to set file data such as access times, owner, group and permissions.
+cutFile - used to move a file from one disk to another
+cutRecursive - simular to recursiveClear, but makes directories and calls cutFile
+renameDumpser - used for moving a file on the same disk as the dest either to or from the dumpster depending on program
+getNewName - self explanatory, destination name
+getFullName - self explanatory, source name
+checkExists - determine if a file already exists and if so returns an empty string, else a workable filename
+getext - determine the dest filename if there is a free one
+
+Report - proj1_report.pdf
+Each of the test bash files in are in rm folder, are can be used to test if modified to use your files.
+Creating the report was quite a learning process as only from the tests created from that did I learn that I wasn't closing directories or that my copy function was bad. 
+Copy function now is only limited by RAM. It could be moved to a loop, but generally you don't want big files clogging up your dumpster/recycle bin anyways.
